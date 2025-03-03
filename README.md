@@ -80,7 +80,7 @@ Change directory to the top of the nts-poc-python tree:
 To start the NTSKE server, open a terminal and run:
 
 ```
- python3 ntske_server.py
+ /opt/python-nts/bin/python3 ntske_server.py
 ```
 
 The server uses server.ini for its configuration.  The default is for
