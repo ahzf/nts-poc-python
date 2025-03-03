@@ -17,7 +17,9 @@ to the openssl libraries being too old.
 
 Install the following packages:
 
+```
  apt-get install git gcc binutils cmake libssl-dev python3-cffi
+```
 
 Custom Python
 -------------
@@ -27,12 +29,15 @@ The reason for this is that the NTS protocol uses the key exporter
 functions of OpenSSL and those are not supported in the stock OpenSSL
 wrapper in Python 3.
 
-Install some pacages needed to build Python 3:
+Install some packages needed to build Python 3:
 
+```
  apt-get install git build-essential cmake pkg-config libssl-dev libffi-dev libz-dev wget
+```
 
 Clone the modified Python 3 repository:
 
+```
  git clone -b export_keying_material-3.7.4 https://github.com/Netnod/cpython.git
 
  cd cpython
@@ -43,13 +48,16 @@ Clone the modified Python 3 repository:
  ln -sf /etc/ssl/ca-certificates.crt /opt/python-nts/ssl/cert.pem
  ln -sf /etc/ssl/certs /opt/python-nts/ssl/certs
  /opt/python-nts/bin/python3 -m pip install cffi
+```
 
 Checking out
 ============
 
 Clone the repository:
 
+```
  git clone --recursive https://github.com/Netnod/nts-poc-python.git
+```
 
 Testing the Python implementation
 =================================
@@ -64,12 +72,16 @@ return corrupt data with some NTS servers.
 
 Change directory to the top of the nts-poc-python tree:
 
+```
  cd nts-poc-python
  ./build.sh
+```
 
 To start the NTSKE server, open a terminal and run:
 
+```
  python3 ntske_server.py
+```
 
 The server uses server.ini for its configuration.  The default is for
 the NTSKE server to listen on TCP port 4446.  The master keys are
@@ -78,7 +90,9 @@ NTSKE server will create a new master key.
 
 To start the NTP/UDP server, open a terminal and run:
 
+```
  /opt/python-nts/bin/python3 ntsts_server.py
+```
 
 The server uses the file "server.ini" for its configuration.  The
 default is for the NTSKE server to listen on TCP port 4123.
@@ -86,21 +100,29 @@ default is for the NTSKE server to listen on TCP port 4123.
 Run the NTSKE client to talk to the NTSKE server and save the results
 to the file "client.ini" and not perform certicate verification (-v).
 
+```
  /opt/python-nts/bin/python3 ntske_client.py -v localhost 4446
+```
 
 Run the NTS client to talk to the NTS server and get a timestamped
 packet back.
 
+```
  /opt/python-nts/bin/python3 ntsts_client.py
+```
 
 If you want to talk to a different NTS server than the one specified
 in client.ini you can specify the NTS server on the command line:
 
+```
  python ntsts_client.py host port
+```
 
 If you want to rotate the master key, run server_helper.py:
 
+```
  /opt/python-nts/bin/python3 server_helper.py
+```
 
 This will create a new key in the server_keys directory which will be
 read by ntske-server.py or nts-server.py on the next request.
